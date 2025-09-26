@@ -8,24 +8,17 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPaperPlane, FaGlobe, FaClock, FaCode } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
 import { toast } from 'sonner';
 
 const Contact = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -35,9 +28,7 @@ const Contact = () => {
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
@@ -55,96 +46,72 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-slate-800" ref={ref}>
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-20 bg-slate-900" ref={ref}>
+      <div className="container mx-auto px-4 max-w-[90rem]">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h3 className="text-lg text-slate-400 font-medium mb-4">Get in touch</h3>
-          <h2 className="text-4xl md:text-5xl font-bold text-white">LET&apos;S CONNECT</h2>
+          <h3 className="text-lg text-slate-400 font-medium mb-2">Get in touch</h3>
+          <h2 className="text-4xl md:text-5xl font-bold text-white">Let's Connect</h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-10 items-stretch">
+          {/* Left Card - Profile */}
           <motion.div
+            className="flex flex-col"
             initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <Card className="bg-slate-700 border-slate-600 shadow-lg shadow-slate-700/20">
-              <CardContent className="p-8">
-                <div className="text-center mb-8">
-                  <Avatar className="w-24 h-24 mx-auto mb-4">
+            <Card className="bg-slate-800 border-slate-700 shadow-xl flex-1 h-full">
+              <CardContent className="p-8 flex flex-col justify-center h-full">
+                <div className="text-center">
+                  <Avatar className="w-24 h-24 mx-auto mb-4 ring-2 ring-slate-500">
                     <AvatarImage src="/images/avatar.jpg" alt="Aleem Talha" />
                     <AvatarFallback className="bg-slate-600 text-white text-2xl">AT</AvatarFallback>
                   </Avatar>
-                  <h3 className="text-2xl font-bold text-white mb-2">Aleem Talha</h3>
-                  <p className="text-slate-400 mb-6">Website developer</p>
-                  
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center justify-center space-x-6">
-                      {[
-                        { icon: FaGithub, href: 'https://github.com/aleemtalha', label: 'GitHub' },
-                        { icon: FaLinkedin, href: 'https://linkedin.com/in/aleemtalha', label: 'LinkedIn' },
-                        { icon: FaTwitter, href: 'https://twitter.com/aleemtalha', label: 'Twitter' },
-                        { icon: FaEnvelope, href: 'mailto:contact@aleelmtalha.com', label: 'Email' },
-                      ].map(({ icon: Icon, href, label }) => (
-                        <a
-                          key={label}
-                          href={href}
-                          className="social-icon p-3 border border-slate-500 rounded-sm text-slate-300 hover:text-white hover:border-slate-400 transition-all duration-300"
-                          aria-label={label}
-                        >
-                          <Icon size={18} />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-1">Aleem Talha</h3>
+                  <p className="text-slate-400 mb-6">Website Developer</p>
 
-                  <div className="text-left space-y-4">
-                    <div className="p-4 bg-slate-600 rounded-md">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <FaGlobe className="text-blue-400" />
-                        <p className="text-slate-200 font-medium">Available Worldwide</p>
-                      </div>
-                      <p className="text-slate-400 text-sm">Remote work & international projects</p>
-                    </div>
-                    
-                    <div className="p-4 bg-slate-600 rounded-md">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <FaClock className="text-green-400" />
-                        <p className="text-slate-200 font-medium">Available 24/7</p>
-                      </div>
-                      <p className="text-slate-400 text-sm">Quick response guaranteed</p>
-                    </div>
-                    
-                    <div className="p-4 bg-slate-600 rounded-md">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <FaCode className="text-purple-400" />
-                        <p className="text-slate-200 font-medium">Open for Projects</p>
-                      </div>
-                      <p className="text-slate-400 text-sm">Full-stack development</p>
-                    </div>
+                  <div className="flex justify-center space-x-4">
+                    {[
+                      { icon: FaGithub, href: 'https://github.com/aleemtalha', label: 'GitHub' },
+                      { icon: FaLinkedin, href: 'https://linkedin.com/in/aleemtalha', label: 'LinkedIn' },
+                      { icon: FaTwitter, href: 'https://twitter.com/aleemtalha', label: 'Twitter' },
+                      { icon: FaEnvelope, href: 'mailto:contact@aleelmtalha.com', label: 'Email' },
+                    ].map(({ icon: Icon, href, label }) => (
+                      <a
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-3 border border-slate-600 rounded-md text-slate-300 hover:text-white hover:border-slate-400 transition"
+                        aria-label={label}
+                      >
+                        <Icon size={18} />
+                      </a>
+                    ))}
                   </div>
                 </div>
               </CardContent>
             </Card>
           </motion.div>
 
+          {/* Right Card - Form */}
           <motion.div
+            className="flex flex-col"
             initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <Card className="bg-slate-700 border-slate-600 shadow-lg shadow-slate-700/20">
-              <CardContent className="p-8">
+            <Card className="bg-slate-800 border-slate-700 shadow-xl flex-1 h-full">
+              <CardContent className="p-8 flex flex-col justify-center h-full">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <Label htmlFor="name" className="text-slate-200 font-medium">
-                      Your Name *
-                    </Label>
+                    <Label htmlFor="name" className="text-white font-medium">Your Name *</Label>
                     <Input
                       id="name"
                       name="name"
@@ -152,15 +119,13 @@ const Contact = () => {
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="mt-2 bg-slate-600 border-slate-500 text-white placeholder:text-slate-400 focus:border-slate-400 rounded-sm"
-                      placeholder="Enter your full name"
+                      placeholder="John Doe"
+                      className="mt-2 bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-slate-400"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="email" className="text-slate-200 font-medium">
-                      Email Address *
-                    </Label>
+                    <Label htmlFor="email" className="text-white font-medium">Email Address *</Label>
                     <Input
                       id="email"
                       name="email"
@@ -168,62 +133,46 @@ const Contact = () => {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="mt-2 bg-slate-600 border-slate-500 text-white placeholder:text-slate-400 focus:border-slate-400 rounded-sm"
-                      placeholder="your.email@example.com"
+                      placeholder="john@example.com"
+                      className="mt-2 bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-slate-400"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="message" className="text-slate-200 font-medium">
-                      Your Message *
-                    </Label>
+                    <Label htmlFor="message" className="text-white font-medium">Your Message *</Label>
                     <Textarea
                       id="message"
                       name="message"
                       required
+                      rows={6}
                       value={formData.message}
                       onChange={handleInputChange}
-                      rows={6}
-                      className="mt-2 bg-slate-600 border-slate-500 text-white placeholder:text-slate-400 focus:border-slate-400 rounded-sm resize-none"
-                      placeholder="Tell me about your project or how I can help you..."
+                      placeholder="Tell me about your project or how I can help..."
+                      className="mt-2 bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-slate-400 resize-none"
                     />
                   </div>
 
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white py-3 rounded-md transition-all shadow-md hover:shadow-lg"
                   >
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-slate-600 hover:bg-slate-500 text-white rounded-sm shadow-sm py-3 flex items-center justify-center space-x-2 transition-all duration-300 hover:shadow-lg"
-                    >
-                      {isSubmitting ? (
-                        <motion.div 
-                          className="flex items-center space-x-2"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <motion.div 
-                            className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                          />
-                          <span>Sending...</span>
-                        </motion.div>
-                      ) : (
-                        <motion.div 
-                          className="flex items-center space-x-2"
-                          whileHover={{ x: 5 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <FaPaperPlane />
-                          <span>Send Message</span>
-                        </motion.div>
-                      )}
-                    </Button>
-                  </motion.div>
+                    {isSubmitting ? (
+                      <div className="flex items-center space-x-2">
+                        <motion.div
+                          className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                        />
+                        <span>Sending...</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-2">
+                        <FaPaperPlane />
+                        <span>Send Message</span>
+                      </div>
+                    )}
+                  </Button>
                 </form>
               </CardContent>
             </Card>

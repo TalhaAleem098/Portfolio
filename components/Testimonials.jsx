@@ -1,10 +1,5 @@
 'use client';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { FaQuoteLeft, FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const Testimonials = () => {
   const [ref, inView] = useInView({ 
@@ -12,7 +7,6 @@ const Testimonials = () => {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   });
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   const testimonials = [
     {
@@ -71,128 +65,121 @@ const Testimonials = () => {
     },
   ];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+  const renderStars = (rating) => {
+    return [...Array(5)].map((_, i) => (
+      <span key={i} className={`text-base sm:text-lg ${i < rating ? 'text-yellow-400' : 'text-slate-600'}`}>
+        ★
+      </span>
+    ));
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const getInitials = (name) => {
+    return name.split(' ').map(word => word[0]).join('').toUpperCase();
   };
 
   return (
-    <section className="py-20 bg-slate-900" ref={ref}>
-      <div className="container mx-auto px-6">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h3 className="text-lg text-slate-400 font-medium mb-4">Client feedback</h3>
-          <h2 className="text-4xl md:text-5xl font-bold text-white">TESTIMONIALS</h2>
-        </motion.div>
-
-        <div className="relative max-w-4xl mx-auto">
-          <motion.div
-            className="overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <motion.div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-            >
-              {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="w-full flex-shrink-0 px-4">
-                  <Card className="testimonial-card bg-slate-800 border-slate-700 hover:border-slate-600 h-full">
-                    <CardContent className="p-8 flex flex-col h-full">
-                      <div className="flex items-center justify-between mb-6">
-                        <FaQuoteLeft className="text-slate-400 text-3xl" />
-                        <div className="flex space-x-1">
-                          {Array.from({ length: testimonial.rating }).map((_, i) => (
-                            <FaStar key={i} className="text-yellow-400 text-lg" />
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <p className="text-slate-300 leading-relaxed mb-8 flex-grow text-lg text-center">
-                        &quot;{testimonial.testimonial}&quot;
-                      </p>
-                      
-                      <div className="flex items-center justify-center space-x-4">
-                        <div className="w-16 h-16 bg-slate-700 rounded-full overflow-hidden">
-                          <img
-                            src={testimonial.avatar}
-                            alt={testimonial.name}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMjAiIGZpbGw9IiM2Mzc0OEYiLz4KPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMTZBOCA4IDAgMSAwIDggMGE4IDggMCAwIDAgMCAxNlpNOCA0YTQgNCAwIDEgMSAwIDhhNCA0IDAgMCAxIDAtOFoiIGZpbGw9IiNGMUY1RjkiLz4KPC9zdmc+Cg==';
-                            }}
-                          />
-                        </div>
-                        <div className="text-center">
-                          <h4 className="text-white font-semibold text-lg">{testimonial.name}</h4>
-                          <p className="text-slate-400">{testimonial.role}</p>
-                          <p className="text-slate-500 text-sm">{testimonial.company}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-center space-x-4 mt-8">
-            <Button
-              onClick={prevSlide}
-              variant="outline"
-              size="lg"
-              className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm"
-            >
-              <FaChevronLeft className="mr-2" />
-              Previous
-            </Button>
-            <Button
-              onClick={nextSlide}
-              variant="outline"
-              size="lg"
-              className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm"
-            >
-              Next
-              <FaChevronRight className="ml-2" />
-            </Button>
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center space-x-2 mt-6">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide ? 'bg-slate-400' : 'bg-slate-600'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+    <section className="py-12 sm:py-16 lg:py-20 bg-slate-900" ref={ref}>
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
+          inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
+            What Clients Say
+          </h2>
+          <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto px-4">
+            Don't just take my word for it - hear from clients who've experienced exceptional results
+          </p>
         </div>
 
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-        >
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            These testimonials reflect the quality and dedication I bring to every project. 
-            Your success is my priority, and I&apos;m committed to delivering exceptional results.
+        <div className={`relative transition-all duration-1000 delay-300 ${
+          inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <div className="absolute left-0 top-0 bottom-0 w-4 sm:w-6 lg:w-8 bg-gradient-to-r from-slate-900 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-4 sm:w-6 lg:w-8 bg-gradient-to-l from-slate-900 to-transparent z-10 pointer-events-none"></div>
+          
+          <div className="overflow-x-auto scrollbar-thin scrollbar-track-slate-800 scrollbar-thumb-slate-600 hover:scrollbar-thumb-slate-500 pb-4">
+            <div className="flex gap-4 sm:gap-6 w-max pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8">
+              {testimonials.map((testimonial, index) => (
+                <div
+                  key={testimonial.id}
+                  className={`bg-slate-800 border border-slate-700 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 
+                    w-72 sm:w-80 md:w-96 lg:w-[420px] xl:w-[480px] 
+                    min-h-[280px] sm:min-h-[300px] lg:min-h-[320px]
+                    hover:bg-slate-750 hover:border-slate-600 transition-all duration-300 
+                    hover:shadow-xl hover:shadow-slate-900/20 
+                    flex flex-col justify-between ${
+                    inView ? `opacity-100 translate-y-0` : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{ 
+                    transitionDelay: inView ? `${400 + index * 100}ms` : '0ms'
+                  }}
+                >
+                  <div className="flex-1">
+                    <div className="text-2xl sm:text-3xl lg:text-4xl text-slate-600 mb-3 sm:mb-4 font-serif">"</div>
+                    
+                    <p className="text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 italic">
+                      {testimonial.testimonial}
+                    </p>
+                    
+                    <div className="flex mb-4 sm:mb-6">
+                      {renderStars(testimonial.rating)}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-700 rounded-full flex items-center justify-center border-2 border-slate-600 shrink-0">
+                      <span className="text-slate-300 font-semibold text-xs sm:text-sm">
+                        {getInitials(testimonial.name)}
+                      </span>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-white font-semibold text-base sm:text-lg truncate">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-slate-400 text-xs sm:text-sm truncate">
+                        {testimonial.role}
+                      </p>
+                      <p className="text-slate-500 text-xs truncate">
+                        {testimonial.company}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className={`text-center mt-6 sm:mt-8 transition-all duration-1000 delay-700 ${
+          inView ? 'opacity-100' : 'opacity-0'
+        }`}>
+          <p className="text-slate-500 text-xs sm:text-sm flex items-center justify-center gap-2">
+            <span className="hidden sm:inline">→</span>
+            <span className="px-2">Scroll horizontally to see more testimonials</span>
+            <span className="hidden sm:inline">←</span>
           </p>
-        </motion.div>
+        </div>
       </div>
+
+      <style jsx>{`
+        .scrollbar-thin::-webkit-scrollbar {
+          height: 1px;
+        }
+        
+        .scrollbar-track-slate-800::-webkit-scrollbar-track {
+          background-color: rgb(30 41 59);
+          border-radius: 3px;
+        }
+        
+        .scrollbar-thumb-slate-600::-webkit-scrollbar-thumb {
+          background-color: rgb(71 85 105);
+          border-radius: 3px;
+        }
+        
+        .hover\\:scrollbar-thumb-slate-500::-webkit-scrollbar-thumb:hover {
+          background-color: rgb(100 116 139);
+        }
+      `}</style>
     </section>
   );
 };
