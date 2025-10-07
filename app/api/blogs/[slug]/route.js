@@ -2,7 +2,8 @@ import { blogPosts } from '../route.js';
 
 export async function GET(request, { params }) {
   try {
-    const slug = params.slug;
+    const awaitedParams = await params;
+    const slug = awaitedParams.slug;
     
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 100));

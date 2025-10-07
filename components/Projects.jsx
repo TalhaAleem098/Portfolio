@@ -74,7 +74,7 @@ const projectsData = [
   },
   {
     id: 5,
-    title: "Multi-Purpose Website Builder",
+    title: "Multi-Purpose Website (Selling-Focused)",
     description: "A flexible platform for creating customizable e-commerce stores and inventory systems. Includes dynamic admin panels, schema control, and advanced UI states.",
     image: "/images/project-multipurpose.jpg",
     technologies: ["Next.js", "MongoDB", "Admin Controls", "Dynamic Schemas"],

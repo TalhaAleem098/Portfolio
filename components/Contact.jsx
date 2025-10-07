@@ -7,8 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPaperPlane, FaInstagram } from 'react-icons/fa';
 import { toast } from 'sonner';
 
 const Contact = () => {
@@ -47,7 +46,7 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-20 bg-slate-900" ref={ref}>
-      <div className="container mx-auto px-4 max-w-[90rem]">
+      <div className="container mx-auto px-4 max-w-7xl">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -55,63 +54,109 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
         >
           <h3 className="text-lg text-slate-400 font-medium mb-2">Get in touch</h3>
-          <h2 className="text-4xl md:text-5xl font-bold text-white">Let's Connect</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Let's Work Together</h2>
+          <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+            Have a project in mind? I'd love to hear from you. Send me a message and let's discuss how we can bring your ideas to life.
+          </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-10 items-stretch">
-          {/* Left Card - Profile */}
+        <div className="grid lg:grid-cols-5 gap-8 items-stretch">
+          {/* Left Side - Profile (40% width) */}
           <motion.div
-            className="flex flex-col"
-            initial={{ opacity: 0, x: -30 }}
+            className="lg:col-span-2"
+            initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <Card className="bg-slate-800 border-slate-700 shadow-xl flex-1 h-full">
-              <CardContent className="p-8 flex flex-col justify-center h-full">
-                <div className="text-center">
-                  <Avatar className="w-24 h-24 mx-auto mb-4 ring-2 ring-slate-500">
-                    <AvatarImage src="/images/avatar.jpg" alt="Aleem Talha" />
-                    <AvatarFallback className="bg-slate-600 text-white text-2xl">AT</AvatarFallback>
-                  </Avatar>
-                  <h3 className="text-2xl font-bold text-white mb-1">Aleem Talha</h3>
-                  <p className="text-slate-400 mb-6">Website Developer</p>
+            <Card className="bg-slate-800/80 backdrop-blur-sm border-slate-700/50 shadow-2xl h-full overflow-hidden group hover:shadow-slate-700/20 transition-all duration-500">
+              <CardContent className="p-0">
+                {/* Profile Image */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-slate-700 to-slate-800">
+                  <img
+                    src="/images/avatar.jpg"
+                    alt="Aleem Talha"
+                    className="w-full h-48 object-cover object-center transform group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-800/60 to-transparent"></div>
+                </div>
 
-                  <div className="flex justify-center space-x-4">
+                {/* Profile Info */}
+                <div className="p-8">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                  >
+                    <h3 className="text-2xl font-bold text-white mb-2">Aleem Talha</h3>
+                    <p className="text-slate-400 text-lg mb-3">Website Developer</p>
+                    <p className="text-slate-300 text-sm mb-6 leading-relaxed">
+                      Passionate about creating modern, responsive web experiences that make a difference.
+                    </p>
+                  </motion.div>
+
+                  {/* Social Links */}
+                  <motion.div
+                    className="flex flex-wrap gap-3"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                  >
                     {[
-                      { icon: FaGithub, href: 'https://github.com/aleemtalha', label: 'GitHub' },
-                      { icon: FaLinkedin, href: 'https://linkedin.com/in/aleemtalha', label: 'LinkedIn' },
-                      { icon: FaTwitter, href: 'https://twitter.com/aleemtalha', label: 'Twitter' },
-                      { icon: FaEnvelope, href: 'mailto:contact@aleelmtalha.com', label: 'Email' },
-                    ].map(({ icon: Icon, href, label }) => (
-                      <a
+                      { icon: FaGithub, href: 'https://github.com/aleemtalha', label: 'GitHub', color: 'hover:bg-gray-700' },
+                      { icon: FaLinkedin, href: 'https://linkedin.com/in/aleemtalha', label: 'LinkedIn', color: 'hover:bg-blue-600' },
+                      { icon: FaTwitter, href: 'https://twitter.com/aleemtalha', label: 'Twitter', color: 'hover:bg-blue-500' },
+                      { icon: FaInstagram, href: 'https://instagram.com/aleemtalha', label: 'Instagram', color: 'hover:bg-pink-600' },
+                      { icon: FaEnvelope, href: 'mailto:contact@aleemtalha.com', label: 'Email', color: 'hover:bg-green-600' },
+                    ].map(({ icon: Icon, href, label, color }, index) => (
+                      <motion.a
                         key={label}
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 border border-slate-600 rounded-md text-slate-300 hover:text-white hover:border-slate-400 transition"
+                        className={`p-3 bg-slate-700/50 border border-slate-600/50 rounded-lg text-slate-300 hover:text-white ${color} hover:border-transparent transition-all duration-300 transform hover:scale-110 hover:shadow-lg`}
                         aria-label={label}
+                        whileHover={{ y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={inView ? { opacity: 1, scale: 1 } : {}}
+                        transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
                       >
                         <Icon size={18} />
-                      </a>
+                      </motion.a>
                     ))}
-                  </div>
+                  </motion.div>
                 </div>
               </CardContent>
             </Card>
           </motion.div>
 
-          {/* Right Card - Form */}
+          {/* Right Side - Contact Form (60% width) */}
           <motion.div
-            className="flex flex-col"
-            initial={{ opacity: 0, x: 30 }}
+            className="lg:col-span-3"
+            initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <Card className="bg-slate-800 border-slate-700 shadow-xl flex-1 h-full">
-              <CardContent className="p-8 flex flex-col justify-center h-full">
+            <Card className="bg-slate-800/80 backdrop-blur-sm border-slate-700/50 shadow-2xl h-full hover:shadow-slate-700/20 transition-all duration-500">
+              <CardContent className="p-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <h4 className="text-2xl font-bold text-white mb-2">Send me a message</h4>
+                  <p className="text-slate-400 mb-8">Fill out the form below and I'll get back to you as soon as possible.</p>
+                </motion.div>
+
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <Label htmlFor="name" className="text-white font-medium">Your Name *</Label>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                  >
+                    <Label htmlFor="name" className="text-white font-medium text-sm mb-2 block">
+                      Full Name *
+                    </Label>
                     <Input
                       id="name"
                       name="name"
@@ -119,13 +164,19 @@ const Contact = () => {
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="John Doe"
-                      className="mt-2 bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-slate-400"
+                      placeholder="Enter your full name"
+                      className="bg-slate-700/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 h-12"
                     />
-                  </div>
+                  </motion.div>
 
-                  <div>
-                    <Label htmlFor="email" className="text-white font-medium">Email Address *</Label>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  >
+                    <Label htmlFor="email" className="text-white font-medium text-sm mb-2 block">
+                      Email Address *
+                    </Label>
                     <Input
                       id="email"
                       name="email"
@@ -133,46 +184,65 @@ const Contact = () => {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="john@example.com"
-                      className="mt-2 bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-slate-400"
+                      placeholder="your.email@example.com"
+                      className="bg-slate-700/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 h-12"
                     />
-                  </div>
+                  </motion.div>
 
-                  <div>
-                    <Label htmlFor="message" className="text-white font-medium">Your Message *</Label>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                  >
+                    <Label htmlFor="message" className="text-white font-medium text-sm mb-2 block">
+                      Your Message *
+                    </Label>
                     <Textarea
                       id="message"
                       name="message"
                       required
-                      rows={6}
+                      rows={5}
                       value={formData.message}
                       onChange={handleInputChange}
-                      placeholder="Tell me about your project or how I can help..."
-                      className="mt-2 bg-slate-700 border-slate-600 text-white placeholder:text-slate-400 focus:border-slate-400 resize-none"
+                      placeholder="Tell me about your project, ideas, or how I can help you..."
+                      className="bg-slate-700/50 border-slate-600/50 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 resize-none"
                     />
-                  </div>
+                  </motion.div>
 
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white py-3 rounded-md transition-all shadow-md hover:shadow-lg"
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.8 }}
                   >
-                    {isSubmitting ? (
-                      <div className="flex items-center space-x-2">
-                        <motion.div
-                          className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                        />
-                        <span>Sending...</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center space-x-2">
-                        <FaPaperPlane />
-                        <span>Send Message</span>
-                      </div>
-                    )}
-                  </Button>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:from-slate-600 disabled:to-slate-600 text-white font-medium py-3 h-12 rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/25 transform hover:scale-[1.02] disabled:hover:scale-100"
+                    >
+                      {isSubmitting ? (
+                        <motion.div 
+                          className="flex items-center justify-center space-x-2"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                        >
+                          <motion.div
+                            className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                          />
+                          <span>Sending message...</span>
+                        </motion.div>
+                      ) : (
+                        <motion.div 
+                          className="flex items-center justify-center space-x-2"
+                          whileHover={{ x: 2 }}
+                        >
+                          <FaPaperPlane />
+                          <span>Send Message</span>
+                        </motion.div>
+                      )}
+                    </Button>
+                  </motion.div>
                 </form>
               </CardContent>
             </Card>

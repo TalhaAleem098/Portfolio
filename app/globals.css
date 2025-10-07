@@ -271,3 +271,152 @@ html {
 .slide-right {
   animation: slideRight 0.6s ease-out;
 }
+
+.blog-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgb(51, 65, 85);
+}
+
+@media (min-width: 768px) {
+  .blog-content h2 {
+    font-size: 1.875rem;
+  }
+}
+
+.blog-content h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .blog-content h3 {
+    font-size: 1.5rem;
+  }
+}
+
+.blog-content h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .blog-content h4 {
+    font-size: 1.25rem;
+  }
+}
+
+.blog-content p {
+  color: rgb(203, 213, 225);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.blog-content ul {
+  color: rgb(203, 213, 225);
+  margin-bottom: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+.blog-content ul li {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.blog-content ul li:before {
+  content: "•";
+  color: rgb(96, 165, 250);
+  font-weight: 700;
+  position: absolute;
+  left: -1rem;
+}
+
+.blog-content ol {
+  color: rgb(203, 213, 225);
+  margin-bottom: 1.5rem;
+  margin-left: 1.5rem;
+  counter-reset: item;
+}
+
+.blog-content ol li {
+  position: relative;
+  margin-bottom: 0.5rem;
+  counter-increment: item;
+}
+
+.blog-content ol li:before {
+  content: counter(item) ".";
+  color: rgb(96, 165, 250);
+  font-weight: 700;
+  position: absolute;
+  left: -1.5rem;
+}
+
+.blog-content pre {
+  background-color: rgb(30, 41, 59);
+  border: 1px solid rgb(51, 65, 85);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.blog-content pre code {
+  font-size: 0.875rem;
+  color: rgb(226, 232, 240);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.blog-content code {
+  background-color: rgb(30, 41, 59);
+  color: rgb(244, 114, 182);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  border: 1px solid rgb(51, 65, 85);
+}
+
+.blog-content blockquote {
+  border-left: 4px solid rgb(59, 130, 246);
+  background-color: rgb(30, 41, 59);
+  color: rgb(203, 213, 225);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.blog-content a {
+  color: rgb(96, 165, 250);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.blog-content a:hover {
+  color: rgb(147, 197, 253);
+}
+
+.blog-content strong {
+  color: white;
+  font-weight: 600;
+}
+
+.blog-content em {
+  color: rgb(226, 232, 240);
+  font-style: italic;
+}
